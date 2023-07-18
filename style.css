@@ -1,0 +1,90 @@
+html,
+body {
+  margin: 0px;
+  height: 100%;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.header {
+    background-color: #eaeaea;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.main {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+}
+
+.calculator {
+    border-radius: 10px;
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 300px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    gap: 10px;
+    background-color: #eaeaea;
+    box-shadow: 1px 2px 2px 1px gray;
+    
+}
+
+.footer {
+    margin-top: auto;
+    background-color: #eaeaea;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.row-1 {
+    width: 100%;
+    flex: 1;
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 270px;
+    box-shadow: 1px 2px 2px 1px gray;
+    background-color: white;
+}
+
+.display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.row-2, .row-3, .row-4, .row-5 {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 10px;
+    flex: 1;
+}
+button {
+    border-radius: 5px;
+    border: 2px solid black;
+    background-color: white;
+    font-size: 30px;
+    width: 50px;
+    height: 50px;
+    box-shadow: 1px 2px 2px 1px gray
+}
+
+button:hover {
+    border: 3px solid black;
+}
+
+button:active {
+    background-color: gray;
+    border: 4px solid black;
+}
