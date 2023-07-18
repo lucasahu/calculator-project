@@ -1,40 +1,59 @@
 // Calculator functionality
-let displayNum1;
-let displayNum2;
-let operator;
+let operator = ''
+let displayNum1
+let displayNum2
+
+function convertStrings () {
+    let display = displayedContent.textContent
+    let regex = /(\+|-|\*|\/) (\d+)/;
+    let match = display.match(regex);
+
+    operator = match[1]
+    displayNum2 = match[2]
+}
 
 function add(num1, num2) {
-    return num1 + num2
+
+    let result = Number(num1) + Number(num2);
+    displayedContent.textContent = result;
+
 }
 
 function subtract (num1, num2) {
-    return num1 - num2
+    result = Number(num1) - Number(num2);
+    displayedContent.textContent = result;
 }
 
 function multiply (num1, num2) {
-    return num1 * num2
+    result = Number(num1) * Number(num2);
+    displayedContent.textContent = result;
 }
 
 function divide (num1, num2) {
-    return num1 / num2
+    result = Number(num1) / Number(num2);
+    displayedContent.textContent = result;
 }
 
 function operate (displayNum1, operator, displayNum2) {
-    Number(displayNum1);
-    Number(displayNum2);
 
     if (operator == '+') {
-        return add(displayNum1, displayNum2)
+        add(displayNum1, displayNum2)
     } else if (operator == '-') {
-        return subtract(displayNum1, displayNum2)
+        subtract(displayNum1, displayNum2)
     } else if (operator == '*') {
-        return multiply(displayNum1, displayNum2)
+        multiply(displayNum1, displayNum2)
     } else if (operator == '/') {
-        return divide(displayNum1, displayNum2)
+        divide(displayNum1, displayNum2)
     }
 }
 
-function updateDisplay(string) {
+function updateDisplayOperator(string) {
+    displayNum1 = displayedContent.textContent;
+    displayedContent.textContent += `${string}`;
+    operator = string
+}
+ 
+function updateDisplayNumbers(string) {
     displayedContent.textContent += `${string}`;
 }
 
@@ -67,20 +86,20 @@ function resetDisplay() {
 
 displayedContent.textContent = '';
 
-buttonSeven.addEventListener('click', () => updateDisplay('7'));
-buttonEight.addEventListener('click', () => updateDisplay('8'));
-buttonNine.addEventListener('click', () => updateDisplay('9'));
-buttonFour.addEventListener('click', () => updateDisplay('4'));
-buttonFive.addEventListener('click', () => updateDisplay('5'));
-buttonSix.addEventListener('click', () => updateDisplay('6'));
-buttonOne.addEventListener('click', () => updateDisplay('1'));
-buttonTwo.addEventListener('click', () => updateDisplay('2'));
-buttonThree.addEventListener('click', () => updateDisplay('3'));
-buttonDivide.addEventListener('click', () => updateDisplay(' / '));
-buttonMultiply.addEventListener('click', () => updateDisplay(' * '));
-buttonSubtract.addEventListener('click', () => updateDisplay(' - '));
-buttonAdd.addEventListener('click', () => updateDisplay(' + '));
-buttonEqual.addEventListener('click', () => {
-    console.log('BOOOM')
-})
+buttonSeven.addEventListener('click', () => updateDisplayNumbers('7'));
+buttonEight.addEventListener('click', () => updateDisplayNumbers('8'));
+buttonNine.addEventListener('click', () => updateDisplayNumbers('9'));
+buttonFour.addEventListener('click', () => updateDisplayNumbers('4'));
+buttonFive.addEventListener('click', () => updateDisplayNumbers('5'));
+buttonSix.addEventListener('click', () => updateDisplayNumbers('6'));
+buttonOne.addEventListener('click', () => updateDisplayNumbers('1'));
+buttonTwo.addEventListener('click', () => updateDisplayNumbers('2'));
+buttonThree.addEventListener('click', () => updateDisplayNumbers('3'));
+buttonZero.addEventListener('click', () => updateDisplayNumbers('0'));
+buttonDivide.addEventListener('click', () => updateDisplayOperator(' / '));
+buttonMultiply.addEventListener('click', () => updateDisplayOperator(' * '));
+buttonSubtract.addEventListener('click', () => updateDisplayOperator(' - '));
+buttonAdd.addEventListener('click', () => updateDisplayOperator(' + '));
+buttonEqual.addEventListener('click', () => convertStrings());
+buttonEqual.addEventListener('click', () => operate(displayNum1, operator, displayNum2));
 buttonReset.addEventListener('click', () => resetDisplay());
