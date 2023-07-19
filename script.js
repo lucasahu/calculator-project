@@ -1,22 +1,69 @@
 // Calculator functionality
-let operator = ''
-let displayNum1
-let displayNum2
+let result;
+let displayNum1;
+let displayNum2;
 
-function convertStrings () {
-    let display = displayedContent.textContent
-    let regex = /(\+|-|\*|\/) (\d+)/;
-    let match = display.match(regex);
+function pickOperation(num1, operator, num2) {
+    if (operator == '+') {
+        add(num1, num2);
+    } else if (operator == '-') {
+        subtract(num1, num2);
+    } else if (operator == '*') {
+        multiply(num1, num2);
+    } else if (operator == '/') {
+        divide(num1, num2);
+    }
+}
 
-    operator = match[1]
-    displayNum2 = match[2]
+function handleError() {
+    displayedContent.textContent = 'INVALID INPUT';
+    displayedContent.style.color = 'white'
+    displayedContent.style.fontWeight = 'bold'
+    display.style.backgroundColor = 'red';
+    display.style.border = '2px solid red';
+    display.style.borderRadius = '7px';
+    setTimeout(() => resetDisplay(), "1000");
+}
+
+function operate() {
+    let displayedValue = displayedContent.textContent;
+    let regex = /[-+*/]|\d+/g;
+    let currentOperator;
+    let currentValue;
+    let match = displayedValue.match(regex);
+    let num1 = match[0];
+    let operator = match[1];
+    let num2 = match[2];
+    if (num2 == '+' || num2 == '-' || num2 == '*' || num2 == '/' ) {
+        handleError()
+    }
+    if (match.length < 3) {
+        handleError()
+    } else if (match.length >= 3) {
+        pickOperation(num1, operator, num2);
+        if (match.length == 3) {
+            return;
+        }
+
+        match.splice(0, 3);
+
+        match.forEach(element => {
+            if (element == '+' || element == '/' || element == '*' || element == '-') {
+                currentOperator = element;
+            } else {
+                currentValue = element;
+            }
+            if (typeof currentOperator !== 'undefined' && typeof currentValue !== 'undefined') {
+                pickOperation(result, currentOperator, currentValue)
+                match.splice(0, 1);
+            }
+        });
+    }
 }
 
 function add(num1, num2) {
-
-    let result = Number(num1) + Number(num2);
+    result = Number(num1) + Number(num2);
     displayedContent.textContent = result;
-
 }
 
 function subtract (num1, num2) {
@@ -34,31 +81,16 @@ function divide (num1, num2) {
     displayedContent.textContent = result;
 }
 
-function operate (displayNum1, operator, displayNum2) {
-
-    if (operator == '+') {
-        add(displayNum1, displayNum2)
-    } else if (operator == '-') {
-        subtract(displayNum1, displayNum2)
-    } else if (operator == '*') {
-        multiply(displayNum1, displayNum2)
-    } else if (operator == '/') {
-        divide(displayNum1, displayNum2)
-    }
-}
-
-function updateDisplayOperator(string) {
-    displayNum1 = displayedContent.textContent;
-    displayedContent.textContent += `${string}`;
-    operator = string
-}
- 
-function updateDisplayNumbers(string) {
+function updateDisplay(string) {
     displayedContent.textContent += `${string}`;
 }
 
 function resetDisplay() {
     displayedContent.textContent = '';
+    displayedContent.style.color = 'black'
+    display.style.backgroundColor = 'white';
+    display.style.border = 'none';
+    display.style.borderRadius = '10px';
 } 
 
 
@@ -86,20 +118,19 @@ function resetDisplay() {
 
 displayedContent.textContent = '';
 
-buttonSeven.addEventListener('click', () => updateDisplayNumbers('7'));
-buttonEight.addEventListener('click', () => updateDisplayNumbers('8'));
-buttonNine.addEventListener('click', () => updateDisplayNumbers('9'));
-buttonFour.addEventListener('click', () => updateDisplayNumbers('4'));
-buttonFive.addEventListener('click', () => updateDisplayNumbers('5'));
-buttonSix.addEventListener('click', () => updateDisplayNumbers('6'));
-buttonOne.addEventListener('click', () => updateDisplayNumbers('1'));
-buttonTwo.addEventListener('click', () => updateDisplayNumbers('2'));
-buttonThree.addEventListener('click', () => updateDisplayNumbers('3'));
-buttonZero.addEventListener('click', () => updateDisplayNumbers('0'));
-buttonDivide.addEventListener('click', () => updateDisplayOperator(' / '));
-buttonMultiply.addEventListener('click', () => updateDisplayOperator(' * '));
-buttonSubtract.addEventListener('click', () => updateDisplayOperator(' - '));
-buttonAdd.addEventListener('click', () => updateDisplayOperator(' + '));
-buttonEqual.addEventListener('click', () => convertStrings());
-buttonEqual.addEventListener('click', () => operate(displayNum1, operator, displayNum2));
+buttonSeven.addEventListener('click', () => updateDisplay('7'));
+buttonEight.addEventListener('click', () => updateDisplay('8'));
+buttonNine.addEventListener('click', () => updateDisplay('9'));
+buttonFour.addEventListener('click', () => updateDisplay('4'));
+buttonFive.addEventListener('click', () => updateDisplay('5'));
+buttonSix.addEventListener('click', () => updateDisplay('6'));
+buttonOne.addEventListener('click', () => updateDisplay('1'));
+buttonTwo.addEventListener('click', () => updateDisplay('2'));
+buttonThree.addEventListener('click', () => updateDisplay('3'));
+buttonZero.addEventListener('click', () => updateDisplay('0'));
+buttonDivide.addEventListener('click', () => updateDisplay(' / '));
+buttonMultiply.addEventListener('click', () => updateDisplay(' * '));
+buttonSubtract.addEventListener('click', () => updateDisplay(' - '));
+buttonAdd.addEventListener('click', () => updateDisplay(' + '));
+buttonEqual.addEventListener('click', () => operate());
 buttonReset.addEventListener('click', () => resetDisplay());
