@@ -49,6 +49,7 @@ body {
 }
 
 .row-1 {
+    font-weight: bold;
     width: 100%;
     flex: 1;
     border: 2px solid black;
@@ -89,4 +90,40 @@ button:hover {
 button:active {
     background-color: gray;
     border: 4px solid black;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.button-reset:hover {
+    background-color: rgb(216, 132, 132);
+}
+
+.button-reset:active {
+    background-color: rgb(121, 72, 72);
+}
+
+.button-equal:hover {
+    background-color: rgb(115, 219, 115);
+}
+
+.button-equal:active {
+    background-color: rgb(70, 131, 70);
+}
+
+.button-multiply:hover,
+.button-add:hover,
+.button-subtract:hover,
+.button-divide:hover {
+    background-color: rgb(129, 129, 252);
+}
+
+.button-multiply:active,
+.button-add:active,
+.button-subtract:active,
+.button-divide:active {
+    background-color: rgb(75, 75, 145);
 }
